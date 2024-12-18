@@ -15,25 +15,21 @@ export const TodoList: React.FC<Props> = ({
 }) => {
   return (
     <ul className="todoapp__main" data-cy="TodoList">
-      {todos.map(todo => (
-        <li
-          key={todo.id}
-          data-cy="Todo"
-          className={cn('todo', { completed: todo.completed })}
-        >
+      {todos.map(({ id, title, completed }) => (
+        <li key={id} data-cy="Todo" className={cn('todo', { completed })}>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label className="todo__status-label">
             <input
               data-cy="TodoStatus"
               type="checkbox"
               className="todo__status"
-              checked={todo.completed}
-              onChange={() => onToggleTodo(todo.id)}
+              checked={completed}
+              onChange={() => onToggleTodo(id)}
             />
           </label>
 
           <span data-cy="TodoTitle" className="todo__title">
-            {todo.title}
+            {title}
           </span>
 
           {/* Remove button appears only on hover */}
@@ -41,7 +37,7 @@ export const TodoList: React.FC<Props> = ({
             type="button"
             className="todo__remove"
             data-cy="TodoDelete"
-            onClick={() => onDelete(todo.id)}
+            onClick={() => onDelete(id)}
           >
             ×
           </button>

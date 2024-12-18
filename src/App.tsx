@@ -4,20 +4,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { UserWarning } from './UserWarning';
 import { USER_ID, getTodos, addTodo, deleteTodo } from './api/todos';
 
+import { Filter } from './types/Filter';
 import { Todo } from './types/Todo';
 import { TodoList } from './сomponents/TodoList';
 import { Footer } from './сomponents/Footer';
 
-export enum Filter {
-  ALL = 'All',
-  ACT = 'Active',
-  COMP = 'Completed',
-}
-
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState('');
-  const [filter, setFilter] = useState<Filter>(Filter.ALL);
+  const [filter, setFilter] = useState<Filter>(Filter.All);
   const [newTitle, setNewTitle] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -25,9 +20,9 @@ export const App: React.FC = () => {
 
   const handlefilteredTodos = todos.filter(todo => {
     switch (filter) {
-      case Filter.ACT:
+      case Filter.Active:
         return !todo.completed;
-      case Filter.COMP:
+      case Filter.Completed:
         return todo.completed;
       default:
         return true;
